@@ -69,6 +69,53 @@ ps aux
 # - grep USE[R]  : print out the first row 
 # - use while and sleep to achieve every 0.05 seconds
 # - grep -v vi   : not show vi (might be process the sqlite related file)
+# - column of RSS should be the memory size allocated to the process <- This one
+# - column of VSZ is the virtual memory size (this includes the memory size which is swapped out and from shared libraries)
 
 
+################
+# Check inode 
+################
+# Directory entry 
+#  - file name1 --> inode of file1 --> data of file1 
+#  - file name2 --> inode of file2 --> data of file2 
+#
+# 1. Check directory entry: ls <-i>
+# 2. Check inode of a file: stat [filename]
+# 3. Check data of a file : cat  [filename]
 
+
+################
+# Shared file (link)
+################
+# 1. Hard link 
+# 2. Symbolic link
+
+# Create a file 
+touch abc.file  
+# Create a hard link of the file 
+ln abc.file abc.hard
+# Create a symbolic link of the file 
+ln -s abc.file abc.symbolic
+
+# Check inode of the three files
+ls -i 
+
+# [Hard link]
+# We can see original file and hard link have the same inode 
+# We need to delete both to really delete the data 
+#
+# Directory entry 
+#  - file name 
+#         |
+#         --> inode of file 
+#         |
+#  - hard link name
+# 
+# [Symbolic link]
+# Symbolic link is a file which stored the path it refers to.
+# So deleting symbolic link will not touch the file, 
+# but deleting the file will really delete the file. 
+#
+#  - symbolic link name --> inode of symbolic link --> data of symbolic link [file name]
+#  - file name          --> inode of file          --> data of file 
