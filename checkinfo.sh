@@ -9,9 +9,18 @@ lscpu
 
 ### Memory Usage
 free
+free -h 
 
 ### Disk Usage
-df
+df  #disk 
+du  #directory
+
+### Contents of directories in tree structure
+tree 
+tree -I "*.class"  #not showing "*.class" files  
+
+### Block Device 
+lsblk 
 
 ### Architecture
 uname -m
@@ -22,12 +31,12 @@ uname -r
 ### Distribution version (Ubuntu)
 cat /etc/lsb-release
 
+
 #---------------------------------------------------
 
 ################
 #Check disk IO
 ################
-
 iostat -x 1
 
 
