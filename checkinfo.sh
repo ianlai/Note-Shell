@@ -1,15 +1,21 @@
 #!/bin/bash
 
+### Check file content 
+nl     #line number
+less
+
 ### CPU Usage
 ps aux 
 top
 
 ### CPU Spec
 lscpu
+cat /proc/cpuinfo 
 
 ### Memory Usage
 free
 free -h 
+cat /proc/meminfo
 
 ### Disk Usage
 df  #disk 
@@ -31,6 +37,17 @@ uname -r
 ### Distribution version (Ubuntu)
 cat /etc/lsb-release
 
+### Hardware information
+lshw -short
+hwinfo --short 
+
+### Different interfaces
+lspci
+lsscsi
+lsusb
+
+### Mounted file system
+mount | column -t 
 
 #---------------------------------------------------
 
