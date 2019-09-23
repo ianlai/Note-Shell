@@ -49,12 +49,13 @@
 | `git diff <commit-1>..<commit-2> -- <file>`              | 要看檔案有哪些變化 | `git diff develop..staging -- internal/data/migrations/`
 
 ## #Tag相關
-| 語法                      | 目的                | 例子               |
-| ------------------------- | ------------------- | ------------------ |
-| `git tag `                 | Show tags   |
+| 語法                      | 目的                  | 例子               |
+| -------------------------- | ------------------- | ------------------ |
+| `git tag `                 | Show tags (local)         |
+| `git ls-remote --tags origin` | Show tags (remote)     |
 | `git tag <tag>`            | Tag at the current commit (local)   |
-| `git tag -D <tag> `        | Remove a tag (local)     |
-| `git push --tags`          | Push the tag (remote) |
+| `git tag -D <tag> `        | Remove a tag (local)      |
+| `git push --tags`          | Push the tag (remote)     |
 | `git push origin :<tag>`   | Remove a tag (remote)     | `git push origin :v1.0.0` |
 
 ## #Git Config ＆ Git Alias
