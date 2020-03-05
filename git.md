@@ -7,6 +7,12 @@
 | `git checkout -- .` | 刪掉本來有 track 的檔案修改（有一個點）                       |
 | `git clean -ifd`    | 刪掉本來 untrack 的檔案修改 -i(interactive) -f(force) -d(dir) |
 
+## #Merge & Rebase
+| 語法                      | 目的                | 例子               |
+| ------------------------- | ------------------- | ------------------ |
+| `[STG] git merge origin/develop --no-ff`              | 從base的staging上面merge遠端的develop過來，並且強制產生一個merge commit |
+| `[FEATURE] git rebase origin/develop` | 更新讓自己正在開發的feature可以有新的feature，也能早點解conflict|
+
 ## #暫存目前的unstage
 | 語法                      | 目的                | 例子               |
 | ------------------------- | ------------------- | ------------------ |
@@ -45,8 +51,9 @@
 ## #查看兩個狀態的差異
 | 語法                      | 目的                | 例子               |
 | ------------------------- | ------------------- | ------------------ |
-| `git log <commit-1>..<commit-2> --oneline`              | 只要看有哪些commit |
-| `git diff <commit-1>..<commit-2> -- <file>`              | 要看檔案有哪些變化 | `git diff develop..staging -- internal/data/migrations/`
+| `git log <commit-1>..<commit-2> --oneline --no-merges`              | 看兩點相差哪些commit |
+| `git diff <commit-1>..<commit-2> -- <file>`              | 看兩點的所有差異檔案有哪些變化 | `git diff develop..staging -- internal/data/migrations/`
+| `git diff --name-status <commit-1>..<commit-2> -- <file>`              | 看兩點的所有檔案差異 | `git diff --name-only origin/staging..develop -- internal/data/migrations`
 
 ## #Tag相關
 | 語法                      | 目的                  | 例子               |
@@ -84,3 +91,17 @@
 ## #Git hook
 - 事前或事後檢查的 pre- / post- conditions
 - https://yodalee.blogspot.com/2016/12/git-hook-unittest.html
+
+
+## #Git Flow (我們的流程) 
+- Master (PROD) <- Staging (STG) <- Develop <- Feature <- Subtask
+- Jira的story對應到Feature; Jira的subtask則對應到Subtask
+- Feature merge進Develop的時候可以使用Squash merge，比較好追蹤有哪些Feature要release 
+- Develop進到Staging或Staging進到Master則是使用一般的merge，確保每一個Feature還是可見的
+- Merge進一層的時候，最好是使用PR，而不要使用local merge，否則會失去merge的資訊
+- 同理，merge時盡量不要使用Fast Forwarding，也就是要產生merge commit比較好追蹤，否則可能會找不到哪一天merge的
+  -  [staging] git merge origin/develop --no-ff
+  -  不過這樣有一個缺點是merge之後兩個branch也不會完全同步，會差一個commit (merge commit)，會比較亂
+- 在Staging合併到Master之後，會在Master上建立tag，並且推到github上，這就是我們下次要發佈的版本
+- Hotfix用在需要直接對Master修改的時候，做法是直接從Master fork出一個分支，叫做Hotfix-xxxx
+  - 修完並且測完之後，就直接合併回Master，當然也要把該Hotfix一起合併回Staging和Develop
