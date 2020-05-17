@@ -76,16 +76,49 @@
 
 ## #Multiple account 
 - 如果有兩個帳號 需要提供兩組key給GitHub (才可以兩邊都登入)
-- 確認可以用兩組key來登入ssh (無法登入但GitHub會顯示是否通過認證)
-  - `ssh git@github.com`
-- 決定哪個domain name要使用哪組key或是要取什麼別名的設定檔在`~/.ssh/config`
-- 最後還要設定以下欄位
+- 決定哪個domain name要使用哪組key或是要取什麼別名的設定檔在`~/.ssh/config`，假設設定如下：
+
+```
+# githubPersonal
+Host ianlai.com
+   HostName github.com
+   User git
+   IdentityFile ~/.ssh/id_rsa_personal
+
+# githubWork
+Host work
+   HostName github.com
+   User git
+   IdentityFile ~/.ssh/id_rsa 
+```
+
+此設定代表
+`ssh git@ianlai.com` 會使用id_rsa_personal來連線。
+`ssh git@work` 會使用id_rsa來連線。
+因此可以確認用前面製作的兩組key來登入ssh是否會成功 (無法登入但GitHub會顯示是否通過認證)
+ 
+- 設定local參數
   
 | 步驟                      | 目的                | 例子               |
 | ------------------------- | ------------------- | ------------------ |
 | 設定`remote.origin.url`    | 上傳位置   | `remote.origin.url=git@github.com:ianlai/Note-Python.git`
 | 設定`user.name`            | 上傳name  | 
 | 設定`user.email`           | 上傳email |
+
+user.name和user.email只是影響到commit顯示的訊息，關鍵在於remote url。
+
+使用`git remote -v` 來查看當前repo使用哪一個帳號。
+
+假設顯示如下，使用`https`，這代表使用的是default帳號，也就是work。
+origin	https://github.com/ianlai/react-todo-app.git (fetch)
+origin	https://github.com/ianlai/react-todo-app.git (push)
+
+要修改成如下，才會使用personal
+
+origin	git@ianlai.com:ianlai/react-todo-app.git (fetch)
+origin	git@ianlai.com:ianlai/react-todo-app.git (push)
+
+git remote set-url origin `git@ianlai.com:ianlai/react-todo-app.git`
 
 
 ## #Git hook
