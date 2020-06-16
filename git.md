@@ -106,6 +106,15 @@ Host work
 | 設定`user.email`           | 上傳email |
 
 user.name和user.email只是影響到commit顯示的訊息，關鍵在於remote url。
+設定user.name: 
+
+git config --local --add user.name [Ian]       //隨意 
+
+git config --local --add user.email [my-email] //隨意 
+
+- 設定Remote URL 
+
+`git remote add origin git@ianlai.com:ianlai/redux-todo-app.git`  //決定要連到哪一個repo，以及要用哪一個帳號連 
 
 使用`git remote -v` 來查看當前repo使用哪一個帳號。
 
@@ -120,13 +129,15 @@ origin	git@ianlai.com:ianlai/react-todo-app.git (push)
 
 git remote set-url origin `git@ianlai.com:ianlai/react-todo-app.git`
 
-
 ## #Git hook
 - 事前或事後檢查的 pre- / post- conditions
 - https://yodalee.blogspot.com/2016/12/git-hook-unittest.html
 
+## 使用外部的工具產生Repo
+- 刪除第一個Commit (可能不是自己想要的) 
+`git update-ref -d HEAD`
 
-## #Git Flow (我們的流程) 
+## #Git Flow (工作流程) 
 - Master (PROD) <- Staging (STG) <- Develop <- Feature <- Subtask
 - Jira的story對應到Feature; Jira的subtask則對應到Subtask
 - Feature merge進Develop的時候可以使用Squash merge，比較好追蹤有哪些Feature要release 
