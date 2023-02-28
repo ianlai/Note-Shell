@@ -70,8 +70,10 @@
 | ------------------------- | ------------------- | ------------------ |
 | `git config --local --list `                 | 顯示local的設定 |
 | `git alias`            | Tag at the current commit (local)   |
-| `git config --local --add alias.<alias> "<action>"`        | 設定alias: git dev | `git config --local --add alias.dev "checkout develop"`
+| `git config --local --add alias.<alias> "<action>"`        | Add alias: git dev | `git config --local --add alias.dev "checkout develop"`
+| `git config --global alias.<alias> "<action>"`       | Add alias: git lg | `git config --global alias.lg "log --oneline" `  
 | `git config --global --unset-all <key>`          | 把設定刪掉 因為key可能重複 所以all是必要的  | `git config --global --unset-all user.name`
+
 
 
 ## #Multiple account 
