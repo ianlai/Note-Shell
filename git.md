@@ -1,5 +1,17 @@
 # Git
 
+## #Settings
+
+`~/.gitconfig`
+
+```
+[alias]
+	s = status
+    br = branch
+    llg = log --graph --pretty=\"%C(yellow)%h %C(cyan)%as %C(green)%an %C(red)%s\"
+    alias = config --get-regexp ^alias\\.
+```
+
 ## #刪除目前的unstage
 
 | 語法                | 目的                                                          | 例子 |
